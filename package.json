@@ -1,0 +1,36 @@
+{
+  "name": "eclyra",
+  "productName": "Eclyra",
+  "version": "1.0.0",
+  "description": "Eclyra — Ayın Kuyusu: 100 basamaklı piksel aksiyon-RPG.",
+  "author": "Enskygr234",
+  "license": "MIT",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis --publish never"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.enskygr234.eclyra",
+    "productName": "Eclyra",
+    "copyright": "© 2026 Enskygr234",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["main.js", "preload.js", "src/**/*", "build/icon.png", "package.json"],
+    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }], "icon": "build/icon.ico" },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Eclyra",
+      "language": "1055",
+      "artifactName": "Eclyra-Setup-${version}.${ext}",
+      "uninstallDisplayName": "Eclyra"
+    }
+  }
+}

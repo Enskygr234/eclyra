@@ -1,0 +1,68 @@
+name: Windows kurulum paketi
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Bağımlılıkları kur
+        run: npm install --no-audit --no-fund
+
+      - name: Setup.exe oluştur
+        run: npx electron-builder --win nsis --publish never
+
+      - name: Oyunu Windows ta dene
+        continue-on-error: true
+        shell: pwsh
+        env:
+          ECLYRA_SELFTEST: ${{ runner.temp }}\selftest
+        run: |
+          $p = Start-Process -FilePath "dist\win-unpacked\Eclyra.exe" -PassThru
+          if (-not $p.WaitForExit(240000)) { $p.Kill(); Write-Host "zaman aşımı" }
+          Get-ChildItem "$env:ECLYRA_SELFTEST" -ErrorAction SilentlyContinue
+          Get-Content "$env:ECLYRA_SELFTEST\report.json" -ErrorAction SilentlyContinue | Select-Object -First 80
+
+      - name: Test çıktısını sakla
+        if: always()
+        continue-on-error: true
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          D="$RUNNER_TEMP/selftest"
+          [ -d "$D" ] || exit 0
+          cd "$D"
+          git init -q
+          git checkout -q -b ci-selftest
+          git -c user.name=ci -c user.email=ci@localhost add -A
+          git -c user.name=ci -c user.email=ci@localhost commit -q -m "selftest ${{ github.sha }}"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" ci-selftest
+
+      - name: Releases'e yükle
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          gh release delete son-surum --cleanup-tag -y || true
+          gh release create son-surum dist/*.exe \
+            --title "Eclyra v$VERSION" \
+            --notes "Windows için kurulum dosyası. **Eclyra-Setup-$VERSION.exe** dosyasını indirip çalıştır. Windows SmartScreen uyarı verirse *Ek bilgi → Yine de çalıştır* de." \
+            --latest
