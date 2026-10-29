@@ -56,6 +56,7 @@
     dmg = Math.max(dmg > 0 ? 1 : 0, Math.round(dmg));
     if (dmg <= 0) { P.invul = 0.25; return true; }
     P.hp -= dmg;
+    P.lastHurt = L.time;
     P.invul = 0.6;
     P.flash = 0.15;
     L.hurtFlash = 0.25;
@@ -119,6 +120,8 @@
       this.atkCd -= dt; this.comboT -= dt; this.dashCd -= dt; this.buzKalbi -= dt;
       for (let i = 0; i < 4; i++) this.cds[i] = Math.max(0, this.cds[i] - dt);
       this.mana = Math.min(st.maxMana, this.mana + st.manaRegen * dt);
+      // savaş dışında yavaş can yenilenmesi
+      if (L.time - (this.lastHurt || -99) > 5 && this.hp < st.maxHp) this.hp = Math.min(st.maxHp, this.hp + st.maxHp * 0.015 * dt);
       if (this.shieldT > 0) { this.shieldT -= dt; if (this.shieldT <= 0) this.shield = 0; }
       this.haste = Math.max(0, this.haste - dt);
       if (this.comboT <= 0) this.combo = 0;

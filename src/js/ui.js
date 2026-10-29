@@ -141,14 +141,14 @@
     const V = E.view, S = G().save, P = L.player;
     // can/mana
     const x = 6, y = 6;
-    panel(ctx, x - 2, y - 2, 128, 34, null, { bg: 'rgba(10,8,20,0.75)' });
+    panel(ctx, x - 2, y - 2, 134, 34, null, { bg: 'rgba(10,8,20,0.75)' });
     F().draw(ctx, `Sv ${S.level}`, x + 2, y + 1, C.sel);
-    bar(ctx, x + 28, y + 1, 94, 7, P.hp, P.stats.maxHp, C.hp);
-    if (P.shield > 0) { ctx.fillStyle = 'rgba(217,200,255,0.75)'; ctx.fillRect(x + 28, y + 1, Math.round(94 * Math.min(1, P.shield / P.stats.maxHp)), 2); }
-    F().draw(ctx, `${E.fmt(Math.ceil(P.hp))}/${E.fmt(P.stats.maxHp)}`, x + 75, y + 1, '#fff', { align: 'center', outline: '#300' });
-    bar(ctx, x + 28, y + 11, 94, 5, P.mana, P.stats.maxMana, C.mana);
+    bar(ctx, x + 34, y + 1, 94, 7, P.hp, P.stats.maxHp, C.hp);
+    if (P.shield > 0) { ctx.fillStyle = 'rgba(217,200,255,0.75)'; ctx.fillRect(x + 34, y + 1, Math.round(94 * Math.min(1, P.shield / P.stats.maxHp)), 2); }
+    F().draw(ctx, `${E.fmt(Math.ceil(P.hp))}/${E.fmt(P.stats.maxHp)}`, x + 81, y + 1, '#fff', { align: 'center', outline: '#300' });
+    bar(ctx, x + 34, y + 11, 94, 5, P.mana, P.stats.maxMana, C.mana);
     // xp
-    bar(ctx, x + 2, y + 21, 120, 2, S.xp, E.items.xpNeed(S.level), '#c9a7ff');
+    bar(ctx, x + 2, y + 21, 126, 2, S.xp, E.items.xpNeed(S.level), '#c9a7ff');
     F().draw(ctx, `${E.fmt(S.gold)}`, x + 12, y + 25 + 0, C.gold);
     ctx.drawImage(E.gfx.itemIcon('altin', '#fff'), x, y + 23, 10, 10);
     ctx.drawImage(E.gfx.itemIcon('demir', '#fff'), x + 52, y + 23, 10, 10); F().draw(ctx, E.fmt(S.ore), x + 64, y + 25, '#c8ccd8');
@@ -433,10 +433,10 @@
   SCREENS.pause = (ctx, s, active) => {
     const V = E.view, g = G(), L = g.L;
     ctx.fillStyle = 'rgba(5,3,12,0.6)'; ctx.fillRect(0, 0, V.w, V.h);
-    const w = 150, x = Math.round(V.w / 2 - w / 2), y = Math.round(V.h / 2 - 66);
-    panel(ctx, x, y, w, 132, 'DURAKLATILDI');
+    const w = 150, x = Math.round(V.w / 2 - w / 2), y = Math.round(V.h / 2 - 76);
+    panel(ctx, x, y, w, 152, 'DURAKLATILDI');
     if (!active) return;
-    const items = [{ label: 'Devam Et', a: 'res' }, { label: 'Envanter', a: 'inv' }, { label: 'Ayarlar', a: 'set' }];
+    const items = [{ label: 'Devam Et', a: 'res' }, { label: 'Envanter', a: 'inv' }, { label: 'Kontroller', a: 'keys' }, { label: 'Ayarlar', a: 'set' }];
     if (L && !L.village) items.push({ label: 'Köye Dön', a: 'home' });
     items.push({ label: 'Ana Menü', a: 'menu' });
     const act = menu(ctx, s, items, x + 15, y + 22, w - 30);
@@ -446,6 +446,7 @@
       if (a === 'res') U.close();
       if (a === 'inv') { U.close(); U.open('inventory'); }
       if (a === 'set') U.open('settings');
+      if (a === 'keys') U.open('keys');
       if (a === 'home') U.open('confirm', { text: 'Bu basamaktaki ilerleme kaybolur, topladıkların kalır.', yes: () => { U.closeAll(); g.fade(() => g.enterVillage('dungeon')); } });
       if (a === 'menu') { g.persist(true); U.closeAll(); g.screen = 'title'; g.L = null; U.open('title'); }
     }
@@ -492,6 +493,23 @@
     const kb = I().padUsed ? 'Kol: A seç · B geri' : 'F11: tam ekran · Esc: geri';
     F().draw(ctx, kb, V.w / 2, y + h - 12, C.dim, { align: 'center' });
     if (active && back()) U.close();
+  };
+
+  // ---------------- KONTROLLER ----------------
+  SCREENS.keys = (ctx, s, active) => {
+    const V = E.view;
+    ctx.fillStyle = 'rgba(5,3,12,0.6)'; ctx.fillRect(0, 0, V.w, V.h);
+    const rows = [
+      ['Yürü', 'WASD / oklar', 'Sol çubuk'], ['Nişan', 'Fare', 'Sağ çubuk'], ['Kılıç', 'Sol tık / J', 'RT ya da A'],
+      ['Atıl', 'Boşluk / Shift', 'B ya da LT'], ['Ateş Topu', 'Sağ tık / 1 / Q', 'X'], ['Buz Halkası', '2', 'Y'],
+      ['Yıldırım', '3 / R', 'RB'], ['Ay Kalkanı', '4 / C', 'LT + LB'], ['İksir', 'F', 'LB'], ['Konuş / kullan', 'E', 'A'],
+      ['Envanter', 'I / Tab', 'Select'], ['Duraklat', 'Esc', 'Start'], ['Tam ekran', 'F11', '']
+    ];
+    const w = 280, h = rows.length * 11 + 40, x = Math.round(V.w / 2 - w / 2), y = Math.round(V.h / 2 - h / 2);
+    panel(ctx, x, y, w, h, 'KONTROLLER');
+    F().draw(ctx, 'Klavye / fare', x + 110, y + 18, C.dim); F().draw(ctx, 'Oyun kolu', x + 200, y + 18, C.dim);
+    rows.forEach(([a, b, c], i) => { const yy = y + 30 + i * 11; F().draw(ctx, a, x + 10, yy, C.text); F().draw(ctx, b, x + 110, yy, C.sel); F().draw(ctx, c, x + 200, yy, '#9fd4ff'); });
+    if (active && (back() || confirm() || mouse().clicked) && s.t > 0.1) U.close();
   };
 
   // ---------------- ENVANTER ----------------
