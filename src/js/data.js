@@ -231,7 +231,8 @@ E.STORY = {
     'Eclyra gözlerini açtı: "Uzun zamandır bekliyordum, küçük kılıç."',
     '"Mühürleri sen tamamladın. Kiri Köyü yeniden huzura kavuştu."',
     'Aren köye döndüğünde kiraz ağaçları açmıştı.',
-    'SON — ama Derinlik hâlâ seni bekliyor.'
+    'SON — ama Derinlik hâlâ seni bekliyor.',
+    'Fikir ve tasarım: Enes (Enskygr234)'
   ]
 };
 

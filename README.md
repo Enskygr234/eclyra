@@ -2,6 +2,7 @@
 
 <h1 align="center">Eclyra — Ayın Kuyusu</h1>
 <p align="center">Kiri Köyü'nün altındaki 100 basamaklı Derinlik'e in, 10 Mühürdar'ı yen, Ay Tanrıçası Eclyra'yı uyandır.</p>
+<p align="center"><sub>Fikir ve tasarım: <b>Enes</b> (<a href="https://github.com/Enskygr234">@Enskygr234</a>)</sub></p>
 <p align="center"><a href="../../releases/latest"><b>⬇ Windows için indir (Setup.exe)</b></a></p>
 
 <p align="center"><img src="docs/screenshots/zindan.png" width="860" alt="Kızıl Katedral'de dövüş"></p>
@@ -64,3 +65,8 @@ npm run dist   # dist/ klasörüne Eclyra-Setup.exe
 ```
 
 Tüm çizimler, müzik ve sesler kodla üretilir; harici görsel ya da ses dosyası yoktur. `main` dalına yapılan her gönderimde GitHub Actions Windows kurulum paketini derler, oyunu açıp dener ve yeni Setup.exe'yi Releases'e yükler.
+
+## Yapımcılar
+
+- **Fikir ve tasarım:** Enes ([@Enskygr234](https://github.com/Enskygr234)) — oyun fikri, 100 bölüm ve boss yapısı, görsel tarz
+- **Kodlama:** Claude ile birlikte

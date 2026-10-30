@@ -333,7 +333,7 @@
     const mw = 110, mx = Math.round(V.w * 0.36 - mw / 2), my = Math.round(V.h * 0.5);
     const act = menu(ctx, s, items, mx, my, mw);
     if (g.hasSave && g.save) F().draw(ctx, `Sv ${g.save.level} · ${g.save.maxFloor}. basamak · ${g.save.bosses}/10 Ay Parçası`, V.w * 0.36, my - 12, C.dim, { align: 'center' });
-    F().draw(ctx, 'v1.0 · Enskygr234', V.w - 4, V.h - 10, '#6a5a8a', { align: 'right' });
+    F().draw(ctx, 'Bir Enes (Enskygr234) oyunu · v1.0', V.w - 4, V.h - 10, '#8a7aaa', { align: 'right' });
     if (act >= 0) {
       const a = items[act].a;
       if (a === 'cont') { E.ui.close(); g.continueGame(); }
