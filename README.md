@@ -4,6 +4,28 @@
 <p align="center">Kiri Köyü'nün altındaki 100 basamaklı Derinlik'e in, 10 Mühürdar'ı yen, Ay Tanrıçası Eclyra'yı uyandır.</p>
 <p align="center"><a href="../../releases/latest"><b>⬇ Windows için indir (Setup.exe)</b></a></p>
 
+<p align="center"><img src="docs/screenshots/zindan.png" width="860" alt="Kızıl Katedral'de dövüş"></p>
+
+## Ekran görüntüleri
+
+| | |
+|---|---|
+| <img src="docs/screenshots/baslik.png" alt="Başlık ekranı"> | <img src="docs/screenshots/koy.png" alt="Kiri Köyü"> |
+| Başlık ekranı | Kiri Köyü ve Ay Kuyusu |
+| <img src="docs/screenshots/diyalog.png" alt="Bilge Nene ile konuşma"> | <img src="docs/screenshots/envanter.png" alt="Envanter"> |
+| Bilge Nene'nin hikâyesi | Envanter ve Efsanevi eşya |
+| <img src="docs/screenshots/kor-vadisi.png" alt="Kor Vadisi"> | <img src="docs/screenshots/ay-kuyusu.png" alt="Bölüm seçimi"> |
+| Kor Vadisi'nde Buz Halkası | Ay Kuyusu: bölüm seçimi |
+
+### Mühürdarlar
+
+| | |
+|---|---|
+| <img src="docs/screenshots/boss-garm.png" alt="Garm"> | <img src="docs/screenshots/boss-kagutsu.png" alt="Kagutsu"> |
+| Garm, Kızıl Yağmurun Kurdu (30) | Kagutsu, Kor Vadisinin Ateş Devi (50) |
+| <img src="docs/screenshots/boss-sayo.png" alt="Sayo"> | <img src="docs/screenshots/boss-aynaci.png" alt="Aynacı"> |
+| Sayo, Buzul Mabedin Hanımı (60) | Aynacı, Işığın Kırık Aynası (80) |
+
 ---
 
 ## Hikâye

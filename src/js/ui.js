@@ -193,9 +193,9 @@
 
     // boss can çubuğu
     if (L.boss && !L.boss.dead && L.boss.state !== 'intro') {
-      const b = L.boss, w = Math.min(260, V.w - 140);
-      const x0 = Math.round(V.w / 2 - w / 2), y0 = 14;
-      F().draw(ctx, `${b.name} — ${b.title}`, V.w / 2, y0 - 9, '#ffd98a', { align: 'center', outline: '#120a14' });
+      const b = L.boss, w = Math.min(260, V.w - 40);
+      const x0 = Math.round(V.w / 2 - w / 2), y0 = V.h - 40;
+      F().draw(ctx, `${b.name} — ${b.title}`, V.w / 2, y0 - 10, '#ffd98a', { align: 'center', outline: '#120a14' });
       bar(ctx, x0, y0, w, 6, b.hp, b.maxHp, b.phase === 2 ? '#ff3a5a' : '#c43aff');
     }
 
@@ -220,7 +220,7 @@
       ctx.globalAlpha = 1;
     }
     // kontrol ipucu (ilk dakikalar)
-    if (S.playTime < 90 && !L.village) {
+    if (S.playTime < 90 && !L.village && !L.boss) {
       const hint = I().padUsed ? 'Sol çubuk: yürü · RT/A: kılıç · B: atıl · X Y RB: büyü · LB: iksir' : 'WASD: yürü · Sol tık: kılıç · Boşluk: atıl · Sağ tık/1-4: büyü · F: iksir · I: envanter';
       F().draw(ctx, hint, V.w / 2, V.h - 40, 'rgba(255,255,255,0.6)', { align: 'center', outline: '#000' });
     }
